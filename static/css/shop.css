@@ -1,0 +1,64 @@
+
+.category-sidebar {
+    /* background-color: #f9f9f9; */
+    /* Light background */
+    border: 1px solid #ddd;
+    /* Subtle border */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 20px;
+    /* Inner spacing */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Slight shadow */
+}
+
+.category-sidebar h4 {
+    font-size: 18px;
+    /* Larger heading */
+    font-weight: bold;
+    /* Bold text */
+    color: #333;
+    /* Darker color for contrast */
+    margin-bottom: 16px;
+    /* Space below heading */
+    text-transform: uppercase;
+    /* All caps */
+}
+
+.category-sidebar ul {
+    list-style: none;
+    /* Remove default bullets */
+    padding: 0;
+    /* Remove padding */
+    margin: 0;
+    /* Remove margin */
+}
+
+.category-sidebar ul li {
+    margin-bottom: 8px;
+    /* Spacing between items */
+}
+
+.category-sidebar ul li a {
+    display: block;
+    /* Make the link a block element */
+    padding: 10px 12px;
+    /* Add padding for a clickable area */
+    color: #555;
+    /* Neutral text color */
+    text-decoration: none;
+    /* Remove underline */
+    border-radius: 6px;
+    /* Rounded edges for hover effect */
+    transition: all 0.3s ease;
+    /* Smooth hover transition */
+}
+
+.category-sidebar ul li a:hover {
+    background-color: #3b5d50;
+    /* Highlight color */
+    color: #fff;
+    /* White text on hover */
+    text-decoration: none;
+    /* Keep text clean */
+}
