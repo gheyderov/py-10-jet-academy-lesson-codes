@@ -4,7 +4,7 @@ from product.models import Product
 # Create your views here.
 
 def shop(request):
-    products = Product.objects.all()
+    products = Product.objects.all() # queryset
     context = {
         'products' : products,
         
