@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static tags %}
 
 {% block title %}
 		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
@@ -101,6 +101,8 @@
 
 	
 		{% include 'includes/testimonial-section.html' %}
+
+		{% get_recent_products %}
 
 {% endblock %}		
 	

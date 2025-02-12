@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from product.models import Product
+from product.models import Product, ProductCategory
 from django.views.generic import DetailView
 
 
@@ -7,8 +7,10 @@ from django.views.generic import DetailView
 
 def shop(request):
     products = Product.objects.all() # queryset type = list
+    categories = ProductCategory.objects.all()
     context = {
         'products' : products,
+        'categories' : categories
         
     }
     return render(request, 'shop.html', context)

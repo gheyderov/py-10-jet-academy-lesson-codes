@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tags %}
 
 <!-- Start Footer Section -->
 <footer class="footer-section">
@@ -65,11 +65,11 @@
 
                     <div class="col-6 col-sm-6 col-md-3">
                         <ul class="list-unstyled">
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Our team</a></li>
-                            <li><a href="#">Leadership</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                        </ul>
+                            {% get_categories as categories %}
+                            {% for category in categories %}
+                            <li><a href="#">{{category.title}}</a></li>
+                            {% endfor %}
+                        </ul>  
                     </div>
 
                     <div class="col-6 col-sm-6 col-md-3">

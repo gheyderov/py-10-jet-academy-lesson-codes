@@ -38,53 +38,20 @@
 					<ul class="list-unstyled">
 						<li><a href="#" class="d-block py-2">All Products</a></li>
 
+						{% for category in categories %}
+						{% if not category.parent %}
 						<li>
-							<a href="#" class="d-block py-2 category-toggle" data-target="#chairsSub">
-								<span class="toggle-icon">➕</span> Chairs
+							<a href="#" class="d-block py-2 category-toggle" data-target="#{{category.title}}">
+								<span class="toggle-icon">➕</span> {{category.title}}
 							</a>
-							<ul id="chairsSub" class="collapse list-unstyled ps-3">
-								<li><a href="#" class="d-block py-1">Office Chairs</a></li>
-								<li><a href="#" class="d-block py-1">Dining Chairs</a></li>
-								<li><a href="#" class="d-block py-1">Recliners</a></li>
-								<li><a href="#" class="d-block py-1">Armchairs</a></li>
+							<ul id="{{category.title}}" class="collapse list-unstyled ps-3">
+								{% for cat in category.child.all %}
+								<li><a href="#" class="d-block py-1">{{cat.title}}</a></li>
+								{% endfor %}
 							</ul>
 						</li>
-
-						<li>
-							<a href="#" class="d-block py-2 category-toggle" data-target="#tablesSub">
-								<span class="toggle-icon">➕</span> Tables
-							</a>
-							<ul id="tablesSub" class="collapse list-unstyled ps-3">
-								<li><a href="#" class="d-block py-1">Coffee Tables</a></li>
-								<li><a href="#" class="d-block py-1">Dining Tables</a></li>
-								<li><a href="#" class="d-block py-1">Side Tables</a></li>
-								<li><a href="#" class="d-block py-1">Work Desks</a></li>
-							</ul>
-						</li>
-
-						<li>
-							<a href="#" class="d-block py-2 category-toggle" data-target="#sofasSub">
-								<span class="toggle-icon">➕</span> Sofas
-							</a>
-							<ul id="sofasSub" class="collapse list-unstyled ps-3">
-								<li><a href="#" class="d-block py-1">Sectional Sofas</a></li>
-								<li><a href="#" class="d-block py-1">Loveseats</a></li>
-								<li><a href="#" class="d-block py-1">Sofa Beds</a></li>
-								<li><a href="#" class="d-block py-1">Chaise Lounges</a></li>
-							</ul>
-						</li>
-
-						<li>
-							<a href="#" class="d-block py-2 category-toggle" data-target="#lightingSub">
-								<span class="toggle-icon">➕</span> Lighting
-							</a>
-							<ul id="lightingSub" class="collapse list-unstyled ps-3">
-								<li><a href="#" class="d-block py-1">Ceiling Lights</a></li>
-								<li><a href="#" class="d-block py-1">Table Lamps</a></li>
-								<li><a href="#" class="d-block py-1">Floor Lamps</a></li>
-								<li><a href="#" class="d-block py-1">Wall Lights</a></li>
-							</ul>
-						</li>
+						{% endif %}
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
