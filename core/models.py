@@ -1,4 +1,5 @@
 from django.db import models
+from core.validators import validate_email
 
 # Create your models here.
 
@@ -27,7 +28,7 @@ class Test(models.Model):
 
 
 class Contact(AbstractModel):
-    first_name = models.CharField('First name', max_length=200)
+    first_name = models.CharField('First name', max_length=20, unique=True)
     last_name = models.CharField('Last name', max_length=200, null=True, blank=True)
     email = models.EmailField('Email', max_length=200)
     message = models.TextField('Message')
