@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+{% endblock %}	
+
+{% block content %}
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Blog Create</h1>
+								<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="hero-img-wrap">
+								<img src="images/couch.png" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+
+		
+        <!-- Start Blog Create Section -->
+        <section class="blog-create py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <form action="" class="row g-3" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+                            <div class="col-12">
+                                <label for="title" class="form-label">Title</label>
+                                <!-- <input type="text" class="form-control" id="title" placeholder="Title"> -->
+								 {{form.title}}
+								 {{form.title.errors}}
+                            </div>
+                            <div class="col-12">
+                                <label for="description" class="form-label">Description</label>
+                                <!-- <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea> -->
+								{{form.description}}
+								{{form.description.errors}}
+							</div>
+                            <div class="col-12">
+                                <label for="content" class="form-label">Category</label>
+								{{form.category}}
+								{{form.category.errors}}
+                                <!-- <select id="category" class="form-select">
+                                    <option selected>Choose...</option>
+                                    <option value="1">Category 1</option>
+                                    <option value="2">Category 2</option>
+                                    <option value="3">Category 3</option>
+                                </select> -->
+                            </div>
+                            <div class="col-12">
+                                <label for="image" class="form-label">Image</label>
+								{{form.image}}
+								{{form.image.errors}}
+                                <!-- <input type="file" class="form-control" id="image"> -->
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+		
+{% endblock %}
+		
