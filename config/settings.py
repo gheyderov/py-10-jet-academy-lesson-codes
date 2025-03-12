@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'account',
     'product',
     'order',
-    'blog'
+    'blog',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +95,8 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+LOGIN_REDIRECT_URL = 'home'
 
 
 # Password validation

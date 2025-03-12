@@ -16,6 +16,8 @@ User = get_user_model()
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
+from django.contrib.auth.views import LoginView
+
 
 # Create your views here.
 
@@ -40,6 +42,12 @@ def register(request):
         'form' : form
     }
     return render(request, 'register.html', context)
+
+
+class UserLoginView(LoginView):
+    template_name = 'login.html'
+    form_class = LoginForm
+
 
 def login(request):
     next = request.GET.get('next', reverse_lazy('home'))
