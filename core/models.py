@@ -12,7 +12,6 @@ class AbstractModel(models.Model):
 
 
 class Subscribe(AbstractModel):
-    name = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(max_length=200, unique=True)
     
     
