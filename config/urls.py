@@ -37,4 +37,5 @@ urlpatterns += i18n_patterns(
     path('', include('order.urls')),
     path('', include('account.urls')),
     path('api/', include('product.api.urls')),
+    path('auth/', include('account.api.urls')),
 )

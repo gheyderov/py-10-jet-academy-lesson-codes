@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from product.api.serializers import ProductCategorySerializer, SubscribeCreateSerializer, ProductSerializer, ProductCreateSerializer
 from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class SubscribeCreateAPIView(CreateAPIView):
@@ -34,6 +35,7 @@ def categories(request):
 class ProductListAPIView(ListCreateAPIView):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

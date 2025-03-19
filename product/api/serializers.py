@@ -2,7 +2,6 @@ from rest_framework import serializers
 from product.models import ProductCategory, Product, ProductTag
 from core.models import Subscribe
 
-
 class SubscribeCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
