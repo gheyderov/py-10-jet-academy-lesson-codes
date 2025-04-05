@@ -200,7 +200,7 @@ EMAIL_BACKEND = 'config.email_backends.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'g.heyderov@gmail.com'
-EMAIL_HOST_PASSWORD = 'jzyc rsix nkja qlsi'
+EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
 
 
