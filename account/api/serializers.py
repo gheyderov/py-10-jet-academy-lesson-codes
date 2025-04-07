@@ -15,6 +15,22 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
 
 
+class UserAPIDocProfileSerializer(serializers.ModelSerializer):
+
+    refresh = serializers.CharField()
+    access = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = (
+            'refresh',
+            'access',
+            'id',
+            'username',
+            'email',
+        )
+
+
 class UserTokenPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):

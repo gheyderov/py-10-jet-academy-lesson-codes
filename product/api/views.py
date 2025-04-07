@@ -8,6 +8,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class TagListAPIView(ListAPIView):
+
+    '''
+        Get All Tags
+    '''
     serializer_class = ProductTagSerializer
     queryset = ProductTag.objects.all()
 
