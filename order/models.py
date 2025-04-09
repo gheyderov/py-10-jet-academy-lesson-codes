@@ -16,8 +16,27 @@ class Wishlist(AbstractModel):
         return self.user.username
     
 
+
+
+class Basket(AbstractModel):
+
+    user = models.ForeignKey(User, related_name='baskets', on_delete=models.CASCADE)
+    # items = models.ManyToManyField(BasketItem)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.user.username
+    
+    def total_price(self):
+        total_price = 0
+        for item in self.items.all():
+            total_price += item.price()
+        return total_price
+    
+
 class BasketItem(AbstractModel):
 
+    basket = models.ForeignKey(Basket, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
     quantity = models.IntegerField('quantity', default=1)
 
@@ -25,20 +44,10 @@ class BasketItem(AbstractModel):
         return self.product.title
     
     def price(self):
-        pass
+        return self.product.price * self.quantity
     
-
-class Basket(AbstractModel):
-
-    user = models.ForeignKey(User, related_name='baskets', on_delete=models.CASCADE)
-    items = models.ManyToManyField(BasketItem)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.user.username
-    
-    def total_price(self):
-        pass
+    class Meta:
+        ordering = '-created_at',
     
 
 class Order(AbstractModel):
