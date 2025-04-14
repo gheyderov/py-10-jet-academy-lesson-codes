@@ -1,6 +1,17 @@
 from rest_framework import serializers
 from product.models import ProductCategory, Product, ProductTag
 from core.models import Subscribe
+from order.models import Wishlist
+
+class WishlistSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Wishlist
+        fields = (
+            'user',
+            'product'
+        )
+        
 
 class SubscribeCreateSerializer(serializers.ModelSerializer):
 

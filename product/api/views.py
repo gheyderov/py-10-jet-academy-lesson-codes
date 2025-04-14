@@ -1,10 +1,31 @@
 from product.models import ProductCategory, Product, ProductTag
+from order.models import Wishlist
 from core.models import Subscribe
 from django.http import JsonResponse
-from product.api.serializers import ProductCategorySerializer, ProductTagSerializer, SubscribeCreateSerializer, ProductSerializer, ProductCreateSerializer
+from product.api.serializers import ProductCategorySerializer, ProductTagSerializer, SubscribeCreateSerializer, ProductSerializer, ProductCreateSerializer, WishlistSerializer
 from rest_framework.decorators import api_view
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, ListAPIView
+from rest_framework.generics import ListCreateAPIView, DestroyAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+
+class WishlistDestroyView(DestroyAPIView):
+    serializer_class = WishlistSerializer
+    queryset = Wishlist.objects.all()
+
+
+class WishListAPIView(ListCreateAPIView):
+    serializer_class = WishlistSerializer
+    queryset = Wishlist.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        productId = request.data.get('productId')
+        product = Product.objects.filter(id = productId).first()
+        wishlist = Wishlist.objects.filter(product = product, user = request.user).first()
+        if wishlist:
+            wishlist.delete()
+            return JsonResponse('Item was removed', safe = False)
+        Wishlist.objects.create(product = product, user = request.user)
+        return JsonResponse('Item was added!', safe=False)
 
 
 class TagListAPIView(ListAPIView):

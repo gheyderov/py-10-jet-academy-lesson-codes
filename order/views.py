@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from order.models import Basket, BasketItem
+from order.models import Basket, BasketItem, Wishlist
 from product.models import Product
 from django.http import JsonResponse
 import json
@@ -39,7 +39,11 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 def wishlist(request):
-    return render(request, 'wishlist.html')
+    wishlist = Wishlist.objects.filter(user = request.user)
+    context = {
+        'wishlist' : wishlist
+    }
+    return render(request, 'wishlist.html', context)
 
 def checkout(request):
     return render(request, 'checkout.html')

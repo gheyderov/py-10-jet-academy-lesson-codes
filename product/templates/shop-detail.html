@@ -57,7 +57,7 @@
                 <!-- Main Product Image -->
                 <div class="col-lg-6">
                     <div class="shop-detail-img">
-                        <img src="{% static 'images/product-1.png' %}" alt="Modern Chair" class="img-fluid main-image">
+                        <img src="{{product.cover_image.url}}" alt="Modern Chair" class="img-fluid main-image">
                     </div>
                     <!-- Related Images -->
                     <div class="related-images mt-4">
@@ -91,7 +91,7 @@
                             </div>
                             <div class="col-auto">
                                 <!-- add to wishlist -->
-                                <button class="btn btn-light"><span class="fa fa-heart"></span></button>
+                                <button class="btn btn-light" id="add-to-wishlist" data-product="{{product.id}}"><span class="fa fa-heart"></span></button>
                                 
                                 <button type="submit" class="btn btn-primary">
                                     <span class="fa fa-shopping-cart"></span> Add to Cart
@@ -159,3 +159,7 @@
 
 {% endblock %}
   
+
+{% block js %}
+<script src="{% static 'js/detail.js' %}"></script>
+{% endblock %}

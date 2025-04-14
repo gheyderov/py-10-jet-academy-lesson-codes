@@ -40,17 +40,18 @@
                         </tr>
                       </thead>
                       <tbody>
+                        {% for item in wishlist %}
                         <tr>
                           <td class="product-thumbnail">
-                            <img src="{% static 'images/product-1.png' %}" alt="Image" class="img-fluid">
+                            <img src="{{item.product.cover_image.url}}" alt="Image" class="img-fluid">
                           </td>
                           <td class="product-name">
-                            <h2 class="h5 text-black">Product 1</h2>
+                            <h2 class="h5 text-black">{{item.product.title}}</h2>
                           </td>
                           
-                          <td><a href="#" class="btn btn-black btn-sm">X</a></td>
+                          <td><a href="#" class="delete-from-wishlist btn btn-black btn-sm" data-item="{{item.id}}">X</a></td>
                         </tr>
-        
+                        {% endfor %}
                       
                       </tbody>
                     </table>
@@ -119,4 +120,8 @@
           </div>
 		
 {% endblock %}
-		
+
+
+{% block js %}
+<script src="{% static 'js/wishlist.js' %}"></script>
+{% endblock %}
