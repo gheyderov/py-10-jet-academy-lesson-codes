@@ -12,7 +12,7 @@ class User(AbstractUser):
     email = models.EmailField("email address", unique=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = '',
+    REQUIRED_FIELDS = 'username',
 
     def get_profile_image(self):
         if self.image:
