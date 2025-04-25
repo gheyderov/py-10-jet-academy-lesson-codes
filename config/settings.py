@@ -21,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-56fymdtkbamx5$!e=l0w^scn9pn0(n%ox@i^35oljgqj^y7zxg'
+SECRET_KEY = 'u541h(^13_^)xm2!k^xbpx186sp1n=go=@@1bk21+6xx^z12_4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', default=1))
+PROD = not DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -98,11 +99,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shop',
-        'USER': 'user',
-        'PASSWORD': 12345,
-        'PORT': 5432,
-        'HOST': os.environ.get('POSTGRES_HOST', 'localhost')
+        'NAME': os.environ.get('POSTGRES_DB', 'db_name'),
+        'USER': os.environ.get('POSTGRES_USER', 'user_name'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '12345'),
+        'PORT': os.environ.get('POSTGRES_PORT', 5432),
+        'HOST': os.environ.get('POSTGRES_HOST', '138.201.153.221')
     }
 }
 
@@ -187,8 +188,10 @@ AUTH_USER_MODEL = 'account.User'
 
 STATIC_URL = 'static/'
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+if PROD:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
@@ -207,5 +210,7 @@ EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
 
 
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:6379"
+CELERY_RESULT_BACKEND = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:6379"
+
+# CSRF_TRUSTED_ORIGINS=['https://*.example.com', 'https://example.com']

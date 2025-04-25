@@ -1,10 +1,19 @@
 FROM python:3.11
 
-WORKDIR /usr/src/app
+ARG DIR=/code
+
+WORKDIR $DIR
+
+RUN apt update
 
 COPY requirements.txt ./
+
+RUN python3 -m pip install --upgrade pip
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8000" ]
+EXPOSE 8050
+
+CMD [ "uwsgi", "--ini", "uwsgi.ini" ]

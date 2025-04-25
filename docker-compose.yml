@@ -1,9 +1,10 @@
 # Use postgres/example user/password credentials
-version: '3.9'
+version: '3'
 
 services:
 
-  db:
+  postgres:
+    container_name: postgres-db
     image: postgres
     restart: always
     ports:
@@ -12,24 +13,54 @@ services:
       - ./pgdb:/var/lib/postgresql/data
     env_file:
       - .env
+    environment:
+      - LC_ALL=C.UTF-8
 
   web:
-    image: shop
     container_name: shop
     build: .
     restart: "always"
     ports:
-      - "8002:8000"
+      - "8000:8000"
+    volumes:
+      - .:/code
+      - ./static/:/code/static/
+      - ./media/:/code/media/
     env_file:
       - .env
     links:
-      - db
+      - postgres
     depends_on:
-      - "db"
+      - "postgres"
       - "redis"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  celery:
+    container_name: celery
+    command: celery -A config worker
+    build:
+      context: .
+      dockerfile: celery.dockerfile
+    depends_on:
+      - "postgres"
+      - "redis"
+    env_file:
+      - .env
 
   redis:
     image: redis
     restart: always
+    env_file:
+      - .env
     ports:
       - 6379:6379
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
