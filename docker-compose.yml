@@ -37,7 +37,7 @@ services:
 
   celery:
     container_name: celery
-    command: celery -A food_stories worker
+    command: celery -A config worker
     build: 
       context: .
       dockerfile: celery.dockerfile
