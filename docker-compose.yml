@@ -1,18 +1,14 @@
-# Use postgres/example user/password credentials
 version: '3'
 
 services:
-
   postgres:
-    container_name: postgres-db
-    image: postgres
-    restart: always
+    container_name:  postgres-db
+    image:           postgres
     ports:
-      - 5432:5432
+      - 5432:5432 # Bind host port 5432 to PostgreSQL port 5432
     volumes:
       - ./pgdb:/var/lib/postgresql/data
-    env_file:
-      - .env
+    env_file: .env
     environment:
       - LC_ALL=C.UTF-8
 
@@ -20,19 +16,18 @@ services:
     container_name: shop
     build: .
     restart: "always"
-    ports:
-      - "8000:8000"
+    env_file: .env
     volumes:
       - .:/code
       - ./static/:/code/static/
       - ./media/:/code/media/
-    env_file:
-      - .env
+    ports:
+      - "8000:8000"
     links:
       - postgres
     depends_on:
       - "postgres"
-      - "redis"
+
 
   adminer:
     image: adminer
@@ -40,25 +35,23 @@ services:
     ports:
       - 8080:8080
 
-  # celery:
-  #   container_name: celery
-  #   command: celery -A config worker
-  #   build:
-  #     context: .
-  #     dockerfile: celery.dockerfile
-  #   depends_on:
-  #     - "postgres"
-  #     - "redis"
-  #   env_file:
-  #     - .env
+  celery:
+    container_name: celery
+    command: celery -A food_stories worker
+    build: 
+      context: .
+      dockerfile: celery.dockerfile
+    depends_on: 
+      - "postgres"
+      - "redis"
+    env_file: .env
 
   redis:
     image: redis
-    restart: always
-    env_file:
-      - .env
-    ports:
+    ports: 
       - 6379:6379
+    restart: always
+
 
 networks:
     default:
